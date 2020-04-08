@@ -1,4 +1,7 @@
-dist: trusty
+language: ruby
+
+services:
+  - docker
 
 jobs:
     include:
