@@ -5,7 +5,7 @@ services:
 
 before_install:
 - docker build -t cf-run-task-demo .
-- docker run cf-run-task-demo test-dotnet-core "./my-task.sh" my-task CF_USERNAME CF_PASSWORD CF_ORG CF_SPACE
+- docker run cf-run-task-demo test-dotnet-core "./my-task.sh" my-task $CF_USERNAME $CF_PASSWORD $CF_ORG $CF_SPACE
 
 install: skip
 
