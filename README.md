@@ -1,6 +1,6 @@
 # CI Triggered Task
 
-An example showing how to run a Cloud Foundry task using Travis CI. 
+An example showing how to run a [Cloud Foundry Task](https://docs.cloudfoundry.org/devguide/using-tasks.html) using Travis CI. 
 
 ## Contents
 
@@ -13,14 +13,16 @@ An example showing how to run a Cloud Foundry task using Travis CI.
 
 First, set up a cloud.gov [service account](https://cloud.gov/docs/services/cloud-gov-service-account/) and generate credentials.
 
-Store the values for `CF_USERNAME`, `CF_PASSWORD`, `CF_ORG`, and `CF_SPACE` as environmental variables in Travis.
+Store the values for `CF_USERNAME`, `CF_PASSWORD` (which are generated in the previous step), `CF_ORG`, and `CF_SPACE` as environmental variables in Travis.
 
 ![Store your values as environmental variables in Travis](images/vars.png)
 
-The `docker run` command in the `.travis.yml` file passes variables to the `entrypoint.sh` file in the Docker container. Change the placeholders with the following values:
+The `docker run` command [in the `.travis.yml` file](https://github.com/mheadd/task-tests/blob/master/.travis.yml#L8) passes variables to the `entrypoint.sh` file in the Docker container. Change the placeholders with the following values:
 
 * `your-app-name` - the app that you want to run a task on (note, this can be any app in your org/space)
 * `your-task` - the task you want to run
 * `your-task-name` - the name of the task
 
-To set your task to run at specified intervals, you can use the [cron feature fo Travis](https://docs.travis-ci.com/user/cron-jobs/).
+The task you run could be a command (e.g., "rails app:sessions:sweep"), or you could invoke a script (e.g., "./my-task.sh") that has been deployed as part of the app you want to run the task on. The choice is yours.
+
+To set your task to run at specified intervals, you can use the [cron feature of Travis](https://docs.travis-ci.com/user/cron-jobs/).

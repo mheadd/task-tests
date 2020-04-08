@@ -4,11 +4,12 @@
 APP_NAME=$1
 TASK=$2
 TASK_NAME=$3
-CF_USERNAME=$4
-CF_PASSWORD=$5
+
 
 # Constants for auth and targeting space
 CF_API=https://api.fr.cloud.gov
+CF_USERNAME=$4
+CF_PASSWORD=$5
 CF_ORG=$6
 CF_SPACE=$7
 
@@ -35,6 +36,16 @@ fi
 
 if [[ -z ${CF_PASSWORD} ]]; then
   echo "You must specify a valid password"
+  exit 1
+fi
+
+if [[ -z ${CF_ORG} ]]; then
+  echo "You must specify a valid org name"
+  exit 1
+fi
+
+if [[ -z ${CF_SPACE} ]]; then
+  echo "You must specify a valid org space name"
   exit 1
 fi
 
