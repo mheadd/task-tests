@@ -1,8 +1,17 @@
 #!/bin/bash
 
+# Parameters passed with script invocation
 APP_NAME=$1
 TASK=$2
 TASK_NAME=$3
+CF_USERNAME=$4
+CF_PASSWORD=$5
+
+# Constants for auth and targeting space
+CF_API=https://api.fr.cloud.gov
+CF_ORG=$6
+CF_SPACE=$7
+
 
 if [[ -z ${APP_NAME} ]]; then
   echo "You must specify an app name"
@@ -19,6 +28,20 @@ if [[ -z ${TASK_NAME} ]]; then
   exit 1
 fi
 
-# cf run-task $1 "$2" --name $3
+if [[ -z ${CF_USERNAME} ]]; then
+  echo "You must specify a valid username"
+  exit 1
+fi
 
-cf --version
+if [[ -z ${CF_PASSWORD} ]]; then
+  echo "You must specify a valid password"
+  exit 1
+fi
+
+# Authenticate with cloud.gov and target space
+cf api "$CF_API"
+cf auth "$CF_USERNAME" "$CF_PASSWORD"
+cf target -o "$CF_ORG" -s "$CF_SPACE"
+
+# Run task
+cf run-task $APP_NAME "$TASK" --name $TASK_NAME
