@@ -3,12 +3,8 @@ language: ruby
 services:
   - docker
 
-jobs:
-    include:
-        - stage: build docker image
-        script:
-            - docker build -t cf-run-task-demo .
-        
-        - stage: run docker image
-        script:
-            - docker run cf-run-task-demo foo bar nash
+before_install:
+- docker build -t cf-run-task-demo .
+- docker run cf-run-task-demo foo bar nash
+
+install: skip
