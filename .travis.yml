@@ -9,3 +9,5 @@ before_install:
 
 install: skip
 
+script:
+    - echo "skipping tests"
